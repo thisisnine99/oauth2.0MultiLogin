@@ -9,6 +9,7 @@ import groovy.util.logging.Slf4j;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.codehaus.groovy.transform.SourceURIASTTransformation;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -36,10 +37,12 @@ public class Oauth2UserService extends DefaultOAuth2UserService {
         HttpSession session = req.getSession();
 
         String uri = (String) session.getAttribute("requestUri");
-
+        System.out.println("------------->");
         if (uri.startsWith("/owner")) {
+            System.out.println("11");
             return ownerOauth2UserService.loadUser(userRequest);
         } else {
+            System.out.println("22");
             return customerOauth2UserService.loadUser(userRequest);
         }
     }
